@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
@@ -13,6 +14,10 @@ const PORT = process.env.PORT || 5000;
 // Import User model and routes
 const User = require('./User');
 const productRoutes = require('./productRoutes');
+
+const mime = require('mime');
+mime.define({ 'application/octet-stream': ['onnx'] });
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
