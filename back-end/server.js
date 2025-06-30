@@ -15,7 +15,7 @@ const User = require('./User');
 const productRoutes = require('./productRoutes');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/dressPro', {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -37,7 +37,7 @@ app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/dressPro' }),
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 // 1 day
   }
