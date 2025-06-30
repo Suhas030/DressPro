@@ -45,8 +45,9 @@ app.use(session({
 
 // Serve static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
-// Add this new line to serve model files
-app.use('/models', express.static(path.join(__dirname, 'models')));
+
+// Add this line to specifically serve model files
+app.use('/models', express.static(path.join(__dirname, 'public/models')));
 
 // Debug route
 app.get('/api/test', (req, res) => {
