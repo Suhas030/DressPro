@@ -15,22 +15,24 @@ import cv2
 import scipy
 import scipy.cluster
 
-from ultralytics import YOLO
+# from ultralytics import YOLO
 import supervision as sv
+import onnxruntime as ort
 
 from openai import OpenAI
 
 # Initializing app
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Loading model and using it on startup ensures app works efficiently
-    global model
-    model = YOLO("best.pt")
-    dummy_frame = np.zeros((640, 480, 3), dtype=np.uint8)
-    get_detections(dummy_frame)
-    
+    global ort_session
+
+    # Absolute ONNX path
+    model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "public", "models", "best.onnx"))
+    ort_session = ort.InferenceSession(model_path)
+
+    print("✅ ONNX model loaded successfully.")
     yield
-    del model
+    del ort_session
 
 app = FastAPI(lifespan=lifespan)
 # Add this:
