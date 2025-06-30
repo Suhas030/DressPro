@@ -74,7 +74,7 @@ class ModelService {
 
   async loadClassMetadata(modelPath) {
     try {
-      const metadataPath = `${window.location.origin}/models/best_metadata.json`;
+      const metadataPath = `${window.location.origin}/api/models/best_metadata.json`;
       console.log('Attempting to load class metadata from:', metadataPath);
       
       const response = await fetch(metadataPath);
@@ -128,7 +128,7 @@ class ModelService {
         await this.loadClassMetadata();
         
         // Then load the model
-        const modelPath = `${window.location.origin}/models/best.onnx`;
+        const modelPath = `${window.location.origin}/api/models/best.onnx`;
         console.log('Attempting to load ONNX model from:', modelPath);
         
         // Use simpler options for better compatibility
