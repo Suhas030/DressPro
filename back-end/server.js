@@ -49,6 +49,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Add this line to specifically serve model files
 app.use('/models', express.static(path.join(__dirname, 'public/models')));
 
+// API route to serve model files
+app.get('/api/models/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'public/models', filename);
+  
+  // Check if file exists
+  if (!require('fs').existsSync(filePath)) {
+    return res.status(404).json({ error: 'Model file not found' });
+  }
+  
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error('Error serving model file:', err);
+      res.status(500).json({ error: 'Error serving model file' });
+    }
+  });
+});
+
 // Debug route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
