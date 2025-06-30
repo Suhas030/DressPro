@@ -12,3 +12,4 @@ ultralytics==8.2.68
 # uvicorn==0.30.6
 python-multipart==0.0.9
 websockets==13.0
+gunicorn==22.1.0
