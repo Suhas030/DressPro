@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ModelService from '../utils/ModelService';
+// import ModelService from '../utils/ModelService';
+import ModelService from 'http://localhost:5000/api/models/best.onnx';
 
 function FindClothes() {
     // State declarations
