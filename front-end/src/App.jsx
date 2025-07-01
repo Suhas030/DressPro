@@ -121,7 +121,7 @@ function App() {
     const checkAuthStatus = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('/api/users/auth-status', {
+        const response = await fetch('https://dresspro-back-end.onrender.com/api/users/auth-status', {
           method: 'GET',
           credentials: 'include', // Important for cookies
         });
