@@ -9,6 +9,8 @@ from fastapi.websockets import WebSocketState
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
+from fastapi.staticfiles import StaticFiles
+
 import numpy as np
 from PIL import Image
 import cv2
@@ -49,6 +51,9 @@ origins = [
     "https://fitdetect.netlify.app/",
     "https://fitdetect.netlify.app"
 ]
+
+# Mount the directory containing the model and metadata files
+app.mount("/models", StaticFiles(directory="app/static/models"), name="models")
 
 app.add_middleware(
     CORSMiddleware,
