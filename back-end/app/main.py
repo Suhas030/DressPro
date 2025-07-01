@@ -7,19 +7,9 @@ from typing import List
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, File, UploadFile, Form
 from fastapi.websockets import WebSocketState
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
-
-from fastapi.middleware.cors import CORSMiddleware
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Or use your frontend URL to be strict
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.gzip import GZipMiddleware
+import uvicorn
 
 import numpy as np
 from PIL import Image
@@ -27,51 +17,45 @@ import cv2
 import scipy
 import scipy.cluster
 
-# from ultralytics import YOLO
 import supervision as sv
 import onnxruntime as ort
-
 from openai import OpenAI
 
-# Initializing app
+# ✅ Define app first
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global ort_session
 
-    # Absolute ONNX path
-    model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "public", "models", "best.onnx"))
+    # Load ONNX model
+    model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "static", "models", "best.onnx"))
     ort_session = ort.InferenceSession(model_path)
 
     print("✅ ONNX model loaded successfully.")
     yield
     del ort_session
 
+# ✅ Create FastAPI app with lifespan
 app = FastAPI(lifespan=lifespan)
-# Add this:
-from starlette.middleware.gzip import GZipMiddleware
+
+# ✅ Add gzip middleware
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
-load_dotenv()
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-print(f"API Key loaded: {OPENAI_API_KEY[:10]}...")  # Debug print
-
-origins = [
-    "http://localhost:5173/",
-    "http://localhost:5173",
-    "https://fitdetect.netlify.app/",
-    "https://fitdetect.netlify.app"
-]
-
-# Mount the directory containing the model and metadata files
-app.mount("/models", StaticFiles(directory="app/static/models"), name="models")
-
+# ✅ CORS for frontend/backend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # You can restrict to your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ✅ Mount static model files (served from this path)
+app.mount("/models", StaticFiles(directory="app/static/models"), name="models")
+
+# ✅ Load environment variables
+load_dotenv()
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+print(f"API Key loaded: {OPENAI_API_KEY[:10]}...")  # Optional debug print
 
 clothing_groups = {
     "short sleeve top": "top", 
