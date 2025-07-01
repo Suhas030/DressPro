@@ -23,7 +23,7 @@ function Profile() {
   const fetchUserData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/users/profile', {
+      const response = await fetch('https://dresspro-back-end.onrender.com/api/users/profile', {
         method: 'GET',
         credentials: 'include',
         headers: {
