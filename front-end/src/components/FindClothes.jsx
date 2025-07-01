@@ -29,12 +29,17 @@ function FindClothes() {
     const canvasRefs = useRef([]);
 
     // API endpoints (kept for fallback)
+    // const apiEndpoints = [
+    //     "https://outfit-detect-recs-production.up.railway.app/upload-multiple-photos",
+    //     "http://localhost:5000/upload-multiple-photos",
+    //     "https://outfit-detect-recs-production.up.railway.app/bulk-analyze",
+    //     "http://localhost:5000/bulk-analyze"
+    // ];
     const apiEndpoints = [
-        "https://outfit-detect-recs-production.up.railway.app/upload-multiple-photos",
-        "http://localhost:5000/upload-multiple-photos",
-        "https://outfit-detect-recs-production.up.railway.app/bulk-analyze",
-        "http://localhost:5000/bulk-analyze"
+        "https://dresspro-back-end.onrender.com/upload-multiple-photos",
+        "https://dresspro-back-end.onrender.com/bulk-analyze"
     ];
+
 
     // Clear errors when files change
     useEffect(() => {
@@ -465,7 +470,7 @@ function FindClothes() {
             for (const className of Object.keys(detectedItems)) {
                 try {
                     // Try to get subcategories from API
-                    const url = `http://localhost:5000/api/product-subcategories?clothingClass=${encodeURIComponent(className)}&gender=${selectedGender || 'all'}`;
+                    const url = `https://dresspro-back-end.onrender.com/api/product-subcategories?clothingClass=${encodeURIComponent(className)}&gender=${selectedGender || 'all'}`;
                     
                     const response = await fetch(url);
                     if (!response.ok) {
@@ -597,7 +602,7 @@ function FindClothes() {
             const colorParams = dominantColors.map(color => color[0]);
             
             // Create API endpoint URL 
-            const baseUrl = "http://localhost:5000/api/product-recommendations";
+            const baseUrl = "https://dresspro-back-end.onrender.com/api/product-recommendations";
             
             // Use the first subcategory for the API call, but we could modify the backend to accept multiple
             const primarySubcategory = dominant.subcategories[0];
