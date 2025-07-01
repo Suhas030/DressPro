@@ -21,10 +21,14 @@ function RateMyFit() {
     const typewriteIntervalId = useRef(null);
 
     // API endpoints - we'll try multiple in case the primary is down
+    // const apiEndpoints = [
+    //     "https://outfit-detect-recs-production.up.railway.app/upload-photo/",
+    //     "http://localhost:8080/upload-photo/" // Fallback to local development if running
+    // ];
     const apiEndpoints = [
-        "https://outfit-detect-recs-production.up.railway.app/upload-photo/",
-        "http://localhost:8080/upload-photo/" // Fallback to local development if running
+        "https://dresspro-back-end.onrender.com/upload-photo/"
     ];
+
 
     // Load saved ratings when component mounts
     useEffect(() => {
@@ -34,7 +38,7 @@ function RateMyFit() {
     const fetchSavedRatings = async () => {
         try {
             setLoadingSavedRatings(true);
-            const response = await fetch('http://localhost:5000/api/saved-ratings');
+            const response = await fetch('https://dresspro-back-end.onrender.com/api/saved-ratings');
             
             if (response.ok) {
                 const data = await response.json();
@@ -209,7 +213,7 @@ function RateMyFit() {
             formData.append('rating', randomRating);
             formData.append('recommendations', JSON.stringify(displayRecs));
             
-            const response = await fetch('http://localhost:5000/api/save-rating', {
+            const response = await fetch('https://dresspro-back-end.onrender.com/api/save-rating', {
                 method: 'POST',
                 body: formData
             });
@@ -252,7 +256,7 @@ function RateMyFit() {
         }
         
         try {
-            const response = await fetch(`http://localhost:5000/api/saved-ratings/${id}`, {
+            const response = await fetch(`https://dresspro-back-end.onrender.com/api/saved-ratings/${id}`, {
                 method: 'DELETE'
             });
             
