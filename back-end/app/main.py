@@ -9,6 +9,16 @@ from fastapi.websockets import WebSocketState
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or use your frontend URL to be strict
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 from fastapi.staticfiles import StaticFiles
 
 import numpy as np
