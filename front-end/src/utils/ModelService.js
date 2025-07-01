@@ -74,7 +74,7 @@ class ModelService {
 
   async loadClassMetadata(modelPath) {
     try {
-      const metadataPath = `${window.location.origin}/api/models/best_metadata.json`;
+      const metadataPath = `https://dresspro-back-end.onrender.com/models/best_metadata.json`;
       console.log('Attempting to load class metadata from:', metadataPath);
       
       const response = await fetch(metadataPath);
@@ -128,7 +128,7 @@ class ModelService {
         await this.loadClassMetadata();
         
         // Then load the model
-        const modelPath = `${window.location.origin}/api/models/best.onnx`;
+        const modelPath = `https://dresspro-back-end.onrender.com/models/best.onnx`;
         console.log('Attempting to load ONNX model from:', modelPath);
         
         // Use simpler options for better compatibility
