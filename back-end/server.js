@@ -30,7 +30,7 @@ mongoose.connect(process.env.MONGO_URI, {
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173'],
+  origin: ['http://localhost:3000', 'http://localhost:5173', 'https://dresspro-front-end.onrender.com'],
   credentials: true
 }));
 
