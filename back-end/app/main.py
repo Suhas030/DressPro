@@ -43,7 +43,7 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 # ✅ CORS for frontend/backend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can restrict to your frontend URL
+    allow_origins=["https://dresspro-front-end.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
