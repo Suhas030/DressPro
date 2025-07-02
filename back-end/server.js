@@ -227,6 +227,37 @@ app.use('/', productRoutes);
 // Routes
 app.use('/api', ratingRoutes);  // Add the rating routes
 
+// Setup Multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, 'public', 'uploads'));
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `outfit-${Date.now()}-${Math.floor(Math.random() * 1000000000)}${path.extname(file.originalname)}`;
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ storage });
+
+// Make sure upload folder exists
+const fs = require('fs');
+const uploadDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// POST /upload-photo
+app.post('/upload-photo', upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+
+  const imageUrl = `/uploads/${req.file.filename}`;
+  res.json({ imageUrl });
+});
+
+
 // Print available routes for debugging
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
