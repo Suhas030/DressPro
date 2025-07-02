@@ -30,9 +30,13 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
+// app.use(cors({
+//   origin: ['http://localhost:3000', 'http://localhost:5173', 'https://dresspro-front-end.onrender.com'],
+//   credentials: true
+// }));
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173', 'https://dresspro-front-end.onrender.com'],
-  credentials: true
+  origin: 'https://dresspro-front-end.onrender.com',
+  credentials: true,
 }));
 
 // Middleware
@@ -40,7 +44,7 @@ app.use(express.json());
 
 // Session middleware
 app.use(session({
-  secret: 'your-secret-key',
+  secret: 'DRESSPRO_SESSION_SECRET_2024_f8g7$H23xA!92h',
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
