@@ -18,6 +18,9 @@ const productRoutes = require('./productRoutes');
 const mime = require('mime');
 mime.define({ 'application/octet-stream': ['onnx'] });
 
+// server.js (FIX)
+const userRoutes = require('./userRoutes');
+app.use('/api/users', userRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
