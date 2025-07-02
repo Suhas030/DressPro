@@ -30,13 +30,9 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-// app.use(cors({
-//   origin: ['http://localhost:3000', 'http://localhost:5173', 'https://dresspro-front-end.onrender.com'],
-//   credentials: true
-// }));
 app.use(cors({
-  origin: 'https://dresspro-front-end.onrender.com',
-  credentials: true,
+  origin: ['http://localhost:3000', 'http://localhost:5173', 'https://dresspro-front-end.onrender.com'],
+  credentials: true
 }));
 
 // Middleware
