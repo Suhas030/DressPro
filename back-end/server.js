@@ -30,12 +30,14 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-// Middleware
-app.use(express.json());
 app.use(cors({
   origin: ['http://localhost:3000', 'http://localhost:5173', 'https://dresspro-front-end.onrender.com'],
   credentials: true
 }));
+
+// Middleware
+app.use(express.json());
+
 
 // Serve static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
