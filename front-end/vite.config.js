@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  base: '/', // ✅ fixes missing fonts/css on Render
+  publicDir: 'public', // ✅ ensures all /public assets are included in build
   plugins: [react()],
   server: {
     proxy: {
@@ -10,13 +12,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false
       },
-      // Proxy for Google Fonts
       '/fonts.googleapis.com': {
         target: 'https://fonts.googleapis.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/fonts.googleapis.com/, '')
       },
-      // Proxy for Amazon images (for recommendations)
       '/m.media-amazon.com': {
         target: 'https://m.media-amazon.com',
         changeOrigin: true,
@@ -24,7 +24,6 @@ export default defineConfig({
       }
     },
     headers: {
-      // Required headers for WebAssembly and SharedArrayBuffer
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',
     }
