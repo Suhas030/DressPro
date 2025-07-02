@@ -16,6 +16,11 @@ body label {
 body {
     background-color: rgb(214, 214, 214);
     color: black;    
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, .oswald-font {
+  font-family: 'Oswald', sans-serif;
 }
 
 .app {
