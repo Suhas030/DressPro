@@ -49,7 +49,7 @@ function Login({ setIsAuthenticated }) {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/users/register', {
+      const response = await fetch('https://dresspro-back-end.onrender.com/api/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
