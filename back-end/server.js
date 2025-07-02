@@ -38,10 +38,6 @@ app.use(cors({
 // Middleware
 app.use(express.json());
 
-
-// Serve static files from the public folder
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Session middleware
 app.use(session({
   secret: 'your-secret-key',
@@ -49,7 +45,9 @@ app.use(session({
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 // 1 day
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    sameSite: 'none',            // ⚠️ Required for cross-origin cookie sharing
+    secure: true                 // ⚠️ Required for HTTPS
   }
 }));
 
