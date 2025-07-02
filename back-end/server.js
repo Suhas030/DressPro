@@ -6,6 +6,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cors = require('cors');
 const path = require('path');
+const multer = require('multer'); // ✅ ADD THIS
 const ratingRoutes = require('./ratingRoutes');
 
 const app = express();
