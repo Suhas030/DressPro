@@ -44,14 +44,14 @@ app.use(express.json());
 
 // Session middleware
 app.use(session({
-  secret: 'DRESSPRO_SESSION_SECRET_2024_f8g7$H23xA!92h',
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
-    sameSite: 'none',            // ⚠️ Required for cross-origin cookie sharing
-    secure: true                 // ⚠️ Required for HTTPS
+    sameSite: 'none',            // Required for cross-site cookies
+    secure: true                 // Required for HTTPS on Render
   }
 }));
 
