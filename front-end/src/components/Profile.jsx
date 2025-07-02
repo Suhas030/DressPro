@@ -93,7 +93,7 @@ function Profile() {
         bottomSize: userData.bottomSize
       });
       
-      const response = await fetch('/api/users/update-details', {
+      const response = await fetch('https://dresspro-back-end.onrender.com/api/users/register', {
         method: 'PUT',
         credentials: 'include',
         headers: {
